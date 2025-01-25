@@ -15,11 +15,7 @@ function Person() {
   });
 
   const changeName = (target, e) => {
-    setPerson((prevPerson) =>
-      target === person.firstName
-        ? { ...prevPerson, firstName: e }
-        : { ...prevPerson, lastName: e }
-    );
+    setPerson((prevPerson) => ({ ...prevPerson, [target]: e }));
   };
 
   return (
@@ -30,12 +26,12 @@ function Person() {
       <input
         type="text"
         value={person.firstName}
-        onChange={(event) => changeName(person.firstName, event.target.value)}
+        onChange={(event) => changeName("firstName", event.target.value)}
       />
       <input
         type="text"
         value={person.lastName}
-        onChange={(event) => changeName(person.lastName, event.target.value)}
+        onChange={(event) => changeName("lastName", event.target.value)}
       />
     </>
   );
