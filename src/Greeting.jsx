@@ -1,4 +1,5 @@
-export { Greeting };
+import { useState } from "react";
+export { Greeting, Person };
 
 function Greeting() {
   return (
@@ -6,27 +7,36 @@ function Greeting() {
   );
 }
 
-const ListItem = (props) => {
-  return <li>{props.animal}</li>;
-};
+function Person() {
+  const [person, setPerson] = useState({
+    firstName: "John",
+    lastName: "Johansson",
+    age: 100,
+  });
 
-const List = (groups) => {
-  return (
-    <ul>
-      {props.animals.map((animal) => {
-        <ListItem key={animal} animal={animal} />;
-      })}
-    </ul>
-  );
-};
-
-const App = () => {
-  const animals = ["Lion", "Cow", "Snake", "Lizard"];
+  const changeName = (target, e) => {
+    setPerson((prevPerson) =>
+      target === person.firstName
+        ? { ...prevPerson, firstName: e }
+        : { ...prevPerson, lastName: e }
+    );
+  };
 
   return (
-    <div>
-      <h1>Animals: </h1>
-      <List animals={animals} />
-    </div>
+    <>
+      <h1>{person.firstName}</h1>
+      <h1>{person.lastName}</h1>
+      <h2>{person.age}</h2>
+      <input
+        type="text"
+        value={person.firstName}
+        onChange={(event) => changeName(person.firstName, event.target.value)}
+      />
+      <input
+        type="text"
+        value={person.lastName}
+        onChange={(event) => changeName(person.lastName, event.target.value)}
+      />
+    </>
   );
-};
+}
